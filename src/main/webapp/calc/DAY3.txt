@@ -1,0 +1,14 @@
+MVC 구조로 계산기 만들기
+
+입력화면 요구사항<GET 방식 설계>
+1. 브라우저는 /input 주소를 호출한다.
+2. /input 에 맞는 서블릿을 InputController 로 작성하고, GET 방식일 때만 동작하도록 구현한다.
+3. InputController의 화면처리는 input.jsp를 이용하도록 한다.
+4. input.jsp는 html 코드를 이용하여 브라우저에서 볼 수 있도록 결과물을 생성한다.
+
+ input.jsp에서 입력, calcResult.jsp에서 처리해서 결과를 출력
+
+ <POST 방식으로 설계>
+ 1. input.jsp 의 <form action = '/calcResult' >의 형태가 되도록 CalcResultServlet(실제 서블릿 클래스명) 서블릿 클래스 컨트롤러를 작성한다.
+ 2. CalcResultServlet은 <form>으로 전달된 num1, num2 데이터를 읽어내서 결과 데이터를 만든다.
+ 3. 만들어진 결과를 calcResult.jsp에 전달하여 결과데이터를 출력한다.
