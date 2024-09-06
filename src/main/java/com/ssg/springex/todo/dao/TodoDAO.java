@@ -100,4 +100,12 @@ public class TodoDAO {
 
     }
 
+
+    public void deletOne(Long tno) throws Exception{
+        String sql = "select * from tbl_tod where tno =?";
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement psmt = connection.prepareStatement(sql);
+        psmt.setLong(1, tno);
+        psmt.executeUpdate();
+    }
 }

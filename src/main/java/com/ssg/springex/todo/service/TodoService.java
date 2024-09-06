@@ -1,19 +1,57 @@
 package com.ssg.springex.todo.service;
 
+import com.ssg.springex.todo.dao.TodoDAO;
+import com.ssg.springex.todo.domain.TodoVO;
 import com.ssg.springex.todo.dto.TodoDTO;
+import com.ssg.springex.todo.util.ModelUtil;
 import com.sun.tools.javac.comp.Todo;
+import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
+@Log4j2
 public enum TodoService {
 
     INSTANCE; // 이 통로를 이용해야지만 서비스를 이용할 수 있도록 함
 
-    public void register(TodoDTO dto){//하나의 글을 등록하는 기능
-        System.out.println("DEBUG................"+dto);
+    private TodoDAO dao;
+
+    TodoService(){
+
+        dao = new TodoDAO(); // 직접 dao 주입
+        modelMapper = ModelUtil.INSTANCE.get();
+
+    }
+
+    private ModelMapper modelMapper;
+
+
+
+    public void register(TodoDTO dto) throws Exception{
+        TodoVO vo = modelMapper.map(dto, TodoVO.class);
+
+        //System.out.println("todoVO : "+vo); -> 이런 정보를 log4j2를 통해 콘솔 출력 가능함
+        log.info(vo);
+        dao.insert(vo);
+    }
+
+//    public void register(TodoDTO dto){//하나의 글을 등록하는 기능
+//        System.out.println("DEBUG................"+dto);
+//    }
+
+    public List<TodoDTO> listAll() throws Exception {//등록된 글 목록 반환하는 기능
+
+        List<TodoVO> voList = dao.selectAllList();
+        log.info(",,,,,,,,,,,,,,,,,,,,,,,,,,,,,");
+        log.info(voList);
+
+        List<TodoDTO> dtoList = voList.stream().map(vo->modelMapper.map(vo, TodoDTO.class)).collect(Collectors.toList());
+
+        return dtoList;
+
     }
 
     public List<TodoDTO> getList(){//등록된 글 목록 반환하는 기능
@@ -31,14 +69,31 @@ public enum TodoService {
     }
 
 
-    public TodoDTO get(Long tno) {
-        TodoDTO dto = new TodoDTO();
-        dto.setTno(tno);
-        dto.setTitle("Sample Todo");
-        dto.setDueDate(LocalDate.now());
-        dto.setFinished(true);
+    public TodoDTO get(Long tno) throws Exception{
+//        TodoDTO dto = new TodoDTO();
+//        dto.setTno(tno);
+//        dto.setTitle("Sample Todo");
+//        dto.setDueDate(LocalDate.now());
+//        dto.setFinished(true);
+        log.info("tno"+tno);
+        TodoVO todoVO = dao.selectOne(tno);
+        TodoDTO dto = modelMapper.map(todoVO, TodoDTO.class);
+
 
         return dto;
+    }
+
+
+    public void remove(Long tno) throws Exception{
+        log.info(tno);
+        dao.deletOne(tno);
+    }
+
+    public void modify(TodoDTO todoDTO) throws Exception{
+        log.info("todoDTO"+ todoDTO);
+        TodoVO vo = modelMapper.map(todoDTO, TodoVO.class);
+        dao.updateOne(vo);
+
     }
 
 
