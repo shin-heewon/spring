@@ -5,6 +5,6 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 
-public class ActivityLog {
+public class ActivityLog {//오라클에서만 씀
   
 }
