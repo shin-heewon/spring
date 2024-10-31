@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+<<<<<<< HEAD
     <mapping directory="$PROJECT_DIR$/DIex1" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Spring-todoService" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/jpa-basic" vcs="Git" />
@@ -14,5 +15,7 @@
     <mapping directory="$PROJECT_DIR$/springJWT" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/todoEx" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/w2" vcs="Git" />
+=======
+>>>>>>> 228e4fd8a486bb99c1bd8c21d45e56fa22f22cf9
   </component>
 </project>
